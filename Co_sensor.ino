@@ -20,7 +20,7 @@
 
 Adafruit_SSD1306 display(OLED_RESET);
 DHT dht(DHT_DATA, DHTTYPE);
-MQ7 mq7(ANALOG_PIN_0,3.3);
+MQ7 mq7(ANALOG_PIN_0,3.9);
 
 int Temp=0;
 int Nivel=1;
@@ -169,6 +169,9 @@ void setup() {
   pinMode(DHT_PWR, OUTPUT);
   pinMode(DHT_DATA,INPUT_PULLUP);
   digitalWrite(DHT_PWR, HIGH);
+  analogReadResolution(12); //12 bits
+  analogSetAttenuation(ADC_11db);  //For all pins
+  analogSetPinAttenuation(ANALOG_PIN_0, ADC_11db); //0db attenu
   delay(400);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // //Inicializa pantalla con en la dirección 0x3D para la conexión I2C.
   dht.begin();
